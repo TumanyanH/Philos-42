@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 typedef struct s_philo {
+	int id;
 	pthread_t thread;
 	int fork;
 } t_philo;

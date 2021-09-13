@@ -25,14 +25,6 @@ void init_globs(char **def_arg)
 	pthread_mutex_init(&g_val.mutex, NULL);
 }
 
-// void *func(void *d)
-// {
-// 	printf("barev %d\n", (int)d);
-// 	sleep((int)d);
-// 	printf("hajox\n");
-// 	return (d);
-// }
-
 int main(int argc, char **argv)
 {
 	if (argc == 5 || argc == 6)
@@ -41,6 +33,7 @@ int main(int argc, char **argv)
 			print_usage();
 		init_globs(argv);
 		wake_philos();
+		
 		start();
 	}
 	else 
