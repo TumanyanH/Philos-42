@@ -37,15 +37,20 @@ void print_usage()
 	exit(0);
 }
 
-int ft_exit(int code)
+int ft_exit(int kill_threads)
 {
-	int i = 0;
-	while (i < g_val.opts.num_of_philos)
+	int i;
+
+	i = 0;
+	if (kill_threads)
 	{
-		pthread_detach(g_val.philos[i].thread);
-		++i;
+		while (i < g_val.opts.num_of_philos)
+		{
+			pthread_detach(g_val.philos[i].thread);
+			++i;
+		}
 	}
-	exit(code);
+	exit(0);
 }
 
 int check_args(int argc, char **argv)
@@ -58,4 +63,12 @@ int check_args(int argc, char **argv)
 		++i;
 	}
 	return (1);
+}
+
+int time_diff()
+{
+	struct timeval cur_time;
+
+	gettimeofday(&cur_time, NULL);
+	return (cur_time.tv_usec - g_val.times.start_time.tv_usec);
 }

@@ -2,13 +2,36 @@
 
 void init_globs(char **def_arg)
 {
-	g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
-	wake_philos();
-	g_val.opts.time_to_die = ft_atoi(def_arg[2]);
-	g_val.opts.time_to_eat = ft_atoi(def_arg[3]);
-	g_val.opts.time_to_sleep = ft_atoi(def_arg[4]);
-	g_val.opts.must_eat = (def_arg[5]) ? ft_atoi(def_arg[5]) : -1;
+	struct timeval *restrict tv;
+	struct timezone *restrict tz;
+
+	if (ft_atoi(def_arg[1]) > 0 && ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
+			&& ft_atoi(def_arg[4]) > 0)
+		{
+			g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
+			g_val.opts.time_to_die = ft_atoi(def_arg[2]);
+			g_val.opts.time_to_eat = ft_atoi(def_arg[3]);
+			g_val.opts.time_to_sleep = ft_atoi(def_arg[4]);
+		}
+	else
+		ft_exit(0);
+	if (def_arg[5])
+		if (ft_atoi(def_arg[5]) > 0)
+			g_val.opts.must_eat = ft_atoi(def_arg[5]);
+		else
+			ft_exit(0);
+	else
+		g_val.opts.must_eat = -1;
+	pthread_mutex_init(&g_val.mutex, NULL);
 }
+
+// void *func(void *d)
+// {
+// 	printf("barev %d\n", (int)d);
+// 	sleep((int)d);
+// 	printf("hajox\n");
+// 	return (d);
+// }
 
 int main(int argc, char **argv)
 {
@@ -17,11 +40,11 @@ int main(int argc, char **argv)
 		if (!check_args(argc, argv))
 			print_usage();
 		init_globs(argv);
-		
+		wake_philos();
+		start();
 	}
 	else 
 		print_usage();
-
-	ft_exit();
+	ft_exit(1);
 	return (0);
 }
