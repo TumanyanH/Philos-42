@@ -1,24 +1,34 @@
 #include "../philos.h"
 
+void think(int *philo)
+{
+	printf("%d %d started thinking\n", time_diff(), g_val.philos[*philo].id);
+	usleep(g_val.opts.time_to_die - g_val.opts.time_to_eat);
+	printf("%d %d ended thinking\n", time_diff(), g_val.philos[*philo].id);
+}
+
+void ph_sleep(int *philo)
+{
+	printf("%d %d started sleeping\n", time_diff(), g_val.philos[*philo].id);
+	usleep(g_val.opts.time_to_eat);
+	printf("%d %d ended sleeping\n", time_diff(), g_val.philos[*philo].id);
+}
+
 void *start_philo(void *arg)
 {
-	printf("%d ENTERED START_PHILO AT %p\n", *((int *)arg), arg);
 	eating((int *)arg);
+	think((int *)arg);
+	pthread_join(g_val.philos[*((int *)arg)].thread, NULL);
 	return (arg);
 }
 
 void eating(int *philo)
 {
-	for (int i = 0; i < 10; i++)
-	{
-		pthread_mutex_lock(&g_val.mutex);
-		printf("%d %d started eat\n", time_diff(), *philo + 1);
-		usleep(g_val.opts.time_to_eat);
-		pthread_mutex_unlock(&g_val.mutex);
-		printf("%d %d ended eat\n", time_diff(), *philo + 1);
-	}
-	// if (*philo + 1 < g_val.philo_count)
-	// 	(g_val.philos[*philo + 1].thread, NULL);
+	pthread_mutex_lock(&g_val.philos[*philo].fork);
+	printf("%d %d started eat\n", time_diff(), g_val.philos[*philo].id);
+	usleep(g_val.opts.time_to_eat);
+	printf("%d %d ended eat\n", time_diff(), g_val.philos[*philo].id);
+	pthread_mutex_unlock(&g_val.philos[*philo].fork);
 }
 
 void wake_philos()
@@ -27,13 +37,12 @@ void wake_philos()
 	int res;
 
 	i = 0;
-	printf("i IS AT %p\n", &i);
 	g_val.philos = (t_philo *)malloc(sizeof(t_philo) * (g_val.opts.num_of_philos + 1));
-	printf("NUMOFPHILOS IS %d\n", g_val.opts.num_of_philos);
 	while (i < g_val.opts.num_of_philos)
 	{
+		g_val.philos[i].id = i + 1;	
 		res = pthread_create(&g_val.philos[i].thread, NULL, &start_philo, &i);
-		g_val.philos[i].fork = 0;
+		pthread_mutex_init(&g_val.philos[i].fork, NULL);
 		if (res != 0)
 			ft_exit(1);
 		++i;

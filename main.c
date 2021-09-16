@@ -22,7 +22,6 @@ void init_globs(char **def_arg)
 			ft_exit(0);
 	else
 		g_val.opts.must_eat = -1;
-	pthread_mutex_init(&g_val.mutex, NULL);
 }
 
 int main(int argc, char **argv)

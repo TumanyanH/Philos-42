@@ -10,7 +10,8 @@
 typedef struct s_philo {
 	int id;
 	pthread_t thread;
-	int fork;
+	pthread_mutex_t fork;
+	struct timeval last_eat;
 } t_philo;
 
 typedef struct s_philo_opts {
@@ -28,7 +29,6 @@ typedef struct s_times {
 struct s_val {
 	t_philo *philos;
 	pthread_mutex_t mutex;
-	int philo_count;
 	t_philo_opts opts;
 	t_times times;
 } g_val;
