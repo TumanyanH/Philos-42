@@ -46,7 +46,7 @@ int ft_exit(int kill_threads)
 	{
 		while (i < g_val.opts.num_of_philos)
 		{
-			pthread_detach(g_val.philos[i].thread);
+			// pthread_detach(g_val.philos[i].thread);
 			++i;
 		}
 	}
@@ -65,10 +65,17 @@ int check_args(int argc, char **argv)
 	return (1);
 }
 
-int time_diff()
+long int  time_diff()
 {
 	struct timeval cur_time;
 
 	gettimeofday(&cur_time, NULL);
-	return (cur_time.tv_usec - g_val.times.start_time.tv_usec);
+	return (((long int)cur_time.tv_sec - (long int)g_val.times.start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
+}
+
+void printf_th(long int time, int ph_count, char *string)
+{
+	pthread_mutex_lock(&g_val.printer);
+	printf("%lu %d %s\n", time, ph_count, string);
+	pthread_mutex_unlock(&g_val.printer);
 }

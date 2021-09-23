@@ -28,18 +28,20 @@ typedef struct s_times {
 
 struct s_val {
 	t_philo *philos;
-	pthread_mutex_t mutex;
+	pthread_mutex_t printer;
 	t_philo_opts opts;
 	t_times times;
+
 } g_val;
 
 int	ft_atoi(const char *str);
 void wake_philos();
 void print_usage();
 int check_args(int argc, char **argv);
-int time_diff();
+long int time_diff();
 void start();
 void eating();
+void printf_th(long int time, int ph_count, char *string);
 int ft_exit(int kill_threads);
 
 #endif
