@@ -9,6 +9,37 @@ void start()
 	while (i < g_val.opts.num_of_philos)
 	{
 		ret = pthread_join(g_val.philos[i].thread, NULL);
+		if (ret != 0)
+			break;
+		ret = pthread_join(g_val.philos[i].ctrl_th, NULL);
+		if (ret != 0)
+			break;
 		++i;
 	}
+}
+
+void *ctrl(void *arg)
+{
+	int ph = *((int *)arg);
+	while (1)
+	{
+		if (time_diff(g_val.philos[ph].last_eat) > g_val.opts.time_to_die)
+			g_val.philos[ph].death = 1;
+		usleep(5000);
+	}
+	return (arg);
+}
+
+int check_death()
+{
+	int ret = 0;
+	int i = 0;
+
+	while (i < g_val.opts.num_of_philos)
+	{
+		if (g_val.philos[i].death)
+			ret = 1;
+		i++;
+	}
+	return (ret);
 }

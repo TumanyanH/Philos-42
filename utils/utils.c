@@ -37,22 +37,6 @@ void print_usage()
 	exit(0);
 }
 
-int ft_exit(int kill_threads)
-{
-	int i;
-
-	i = 0;
-	if (kill_threads)
-	{
-		while (i < g_val.opts.num_of_philos)
-		{
-			// pthread_detach(g_val.philos[i].thread);
-			++i;
-		}
-	}
-	exit(0);
-}
-
 int check_args(int argc, char **argv)
 {
 	int i = 0;
@@ -65,12 +49,12 @@ int check_args(int argc, char **argv)
 	return (1);
 }
 
-long int  time_diff()
+long int  time_diff(struct timeval start_time)
 {
 	struct timeval cur_time;
 
 	gettimeofday(&cur_time, NULL);
-	return (((long int)cur_time.tv_sec - (long int)g_val.times.start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
+	return (((long int)cur_time.tv_sec - (long int)start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
 }
 
 void printf_th(long int time, int ph_count, char *string)

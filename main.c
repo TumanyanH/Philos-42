@@ -5,7 +5,6 @@ void init_globs(char **def_arg)
 	struct timeval *restrict tv;
 	struct timezone *restrict tz;
 
-	gettimeofday(&g_val.times.start_time, NULL);
 	if (ft_atoi(def_arg[1]) > 0 && ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
 			&& ft_atoi(def_arg[4]) > 0)
 		{
@@ -14,13 +13,11 @@ void init_globs(char **def_arg)
 			g_val.opts.time_to_eat = ft_atoi(def_arg[3]);
 			g_val.opts.time_to_sleep = ft_atoi(def_arg[4]);
 		}
-	else
-		ft_exit(0);
 	if (def_arg[5])
+	{
 		if (ft_atoi(def_arg[5]) > 0)
 			g_val.opts.must_eat = ft_atoi(def_arg[5]);
-		else
-			ft_exit(0);
+	}
 	else
 		g_val.opts.must_eat = -1;
 	printf("%d %d %d %d %d\n", g_val.opts.num_of_philos, g_val.opts.time_to_die, g_val.opts.time_to_eat, g_val.opts.time_to_sleep, g_val.opts.must_eat);
@@ -38,6 +35,5 @@ int main(int argc, char **argv)
 	}
 	else 
 		print_usage();
-	ft_exit(1);
 	return (0);
 }
