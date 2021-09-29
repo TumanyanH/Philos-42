@@ -23,9 +23,13 @@ void *ctrl(void *arg)
 	int ph = *((int *)arg);
 	while (1)
 	{
-		if (time_diff(g_val.philos[ph].last_eat) > g_val.opts.time_to_die)
+		if (time_diff(g_val.philos[ph].last_eat) < g_val.opts.time_to_die)
+		{
 			g_val.philos[ph].death = 1;
-		usleep(5000);
+			printf_th(time_diff(g_val.times.start_time), ph + 1, "died");
+			break;
+		}
+		usleep(50);
 	}
 	return (arg);
 }

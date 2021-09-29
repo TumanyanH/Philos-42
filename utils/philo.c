@@ -17,10 +17,11 @@ void *start_philo(void *arg)
 	int ph_num;
 
 	ph_num = *((int *)arg);
-	eating(*(int *)arg);
+	eating(ph_num);
 	ph_sleep((int *)arg);
 	think((int *)arg);
-	start_philo(arg);
+	if (!check_death(ph_num))
+		start_philo(arg);
 	return (arg);
 }
 
@@ -34,6 +35,7 @@ void eating(int ph)
 		pthread_mutex_lock(&g_val.philos[0].fork);
 	printf_th(time_diff(g_val.times.start_time), ph + 1, "has taken a fork");
 
+	gettimeofday(&g_val.philos[ph].last_eat, NULL);
 	usleep(g_val.opts.time_to_eat * 1000);
 	printf_th(time_diff(g_val.times.start_time), ph + 1, "is eating");
 
@@ -42,7 +44,6 @@ void eating(int ph)
 		pthread_mutex_unlock(&g_val.philos[ph + 1].fork);
 	else 
 		pthread_mutex_unlock(&g_val.philos[0].fork);
-	gettimeofday(&g_val.philos[ph].last_eat, NULL);
 }
 
 void init_mutex()

@@ -57,7 +57,7 @@ long int  time_diff(struct timeval start_time)
 	return (((long int)cur_time.tv_sec - (long int)start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
 }
 
-void printf_th(long int time, int ph_count, char *string)
+void	printf_th(long int time, int ph_count, char *string)
 {
 	pthread_mutex_lock(&g_val.printer);
 	printf("%lu %d %s\n", time, ph_count, string);
