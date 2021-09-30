@@ -57,9 +57,21 @@ long int  time_diff(struct timeval start_time)
 	return (((long int)cur_time.tv_sec - (long int)start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
 }
 
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 void	printf_th(long int time, int ph_count, char *string)
 {
 	pthread_mutex_lock(&g_val.printer);
 	printf("%lu %d %s\n", time, ph_count, string);
-	pthread_mutex_unlock(&g_val.printer);
+	if (ft_strcmp(string, "died"))
+		pthread_mutex_unlock(&g_val.printer);
 }

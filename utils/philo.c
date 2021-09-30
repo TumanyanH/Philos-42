@@ -17,6 +17,8 @@ void *start_philo(void *arg)
 	int ph_num;
 
 	ph_num = *((int *)arg);
+	printf("%lu\n", g_val.philos[ph_num].last_eat.tv_sec);
+
 	eating(ph_num);
 	ph_sleep((int *)arg);
 	think((int *)arg);
@@ -74,9 +76,22 @@ void wake_philos()
 	while (i < g_val.opts.num_of_philos)
 	{
 		res = pthread_create(&g_val.philos[i].thread, NULL, &start_philo, &g_val.philos[i].id); 
-		res = pthread_create(&g_val.philos[i].ctrl_th, NULL, &ctrl, &g_val.philos[i].id);
-
 		usleep(20);
 		++i;
 	}
+	i = 0;
+	while (i < g_val.opts.num_of_philos)
+	{
+		gettimeofday(&g_val.philos[i].last_eat, NULL);
+		i++;
+	}
+	usleep(100);
+	i = 0;
+	while (i < g_val.opts.num_of_philos)
+	{
+		res = pthread_create(&g_val.philos[i].ctrl_th, NULL, &ctrl, &g_val.philos[i].id);
+		usleep(20);
+		++i;
+	}
+	
 }
