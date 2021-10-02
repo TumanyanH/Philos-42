@@ -28,6 +28,7 @@ void *ctrl(void *arg)
 	int ph = *((int *)arg);
 	while (1)
 	{
+		// printf("%lu - %d\n", time_diff(g_val.philos[ph].last_eat), g_val.opts.time_to_die);
 		if (time_diff(g_val.philos[ph].last_eat) > g_val.opts.time_to_die)
 		{
 			g_val.philos[ph].death = 1;

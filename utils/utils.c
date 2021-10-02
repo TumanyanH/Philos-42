@@ -52,9 +52,11 @@ int check_args(int argc, char **argv)
 long int  time_diff(struct timeval start_time)
 {
 	struct timeval cur_time;
+	long int start = ((long int)start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
 
 	gettimeofday(&cur_time, NULL);
-	return (((long int)cur_time.tv_sec - (long int)start_time.tv_sec) * 1000 + ((int)cur_time.tv_usec / 1000));
+	return ((((long int)cur_time.tv_sec * 1000) + ((int)cur_time.tv_usec / 1000))
+			- start);
 }
 
 

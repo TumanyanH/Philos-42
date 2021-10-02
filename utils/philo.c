@@ -17,7 +17,7 @@ void *start_philo(void *arg)
 	int ph_num;
 
 	ph_num = *((int *)arg);
-	printf("%lu\n", g_val.philos[ph_num].last_eat.tv_sec);
+	// printf("%lu\n", g_val.philos[ph_num].last_eat.tv_sec);
 
 	eating(ph_num);
 	ph_sleep((int *)arg);
@@ -70,9 +70,8 @@ void wake_philos()
 	i = 0;
 	g_val.philos = (t_philo *)malloc(sizeof(t_philo) * (g_val.opts.num_of_philos + 1));
 
-	gettimeofday(&g_val.times.start_time, NULL);
-
 	init_mutex();
+	gettimeofday(&g_val.times.start_time, NULL);
 	while (i < g_val.opts.num_of_philos)
 	{
 		res = pthread_create(&g_val.philos[i].thread, NULL, &start_philo, &g_val.philos[i].id); 
@@ -95,3 +94,5 @@ void wake_philos()
 	}
 	
 }
+
+// press - 1, release - 0, action - +/- 
