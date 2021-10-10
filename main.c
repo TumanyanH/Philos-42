@@ -1,18 +1,18 @@
 #include "philos.h"
 
-void init_globs(char **def_arg)
+void	init_globs(char **def_arg)
 {
-	struct timeval *restrict tv;
-	struct timezone *restrict tz;
+	struct timeval	tv;
+	struct timezone	tz;
 
 	if (ft_atoi(def_arg[1]) > 0 && ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
 			&& ft_atoi(def_arg[4]) > 0)
-		{
-			g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
-			g_val.opts.time_to_die = ft_atoi(def_arg[2]);
-			g_val.opts.time_to_eat = ft_atoi(def_arg[3]);
-			g_val.opts.time_to_sleep = ft_atoi(def_arg[4]);
-		}
+	{
+		g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
+		g_val.opts.time_to_die = ft_atoi(def_arg[2]);
+		g_val.opts.time_to_eat = ft_atoi(def_arg[3]);
+		g_val.opts.time_to_sleep = ft_atoi(def_arg[4]);
+	}
 	if (def_arg[5])
 	{
 		if (ft_atoi(def_arg[5]) > 0)
@@ -20,10 +20,9 @@ void init_globs(char **def_arg)
 	}
 	else
 		g_val.opts.must_eat = -1;
-	printf("%d %d %d %d %d\n", g_val.opts.num_of_philos, g_val.opts.time_to_die, g_val.opts.time_to_eat, g_val.opts.time_to_sleep, g_val.opts.must_eat);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (argc == 5 || argc == 6)
 	{

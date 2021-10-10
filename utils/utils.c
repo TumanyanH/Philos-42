@@ -26,7 +26,7 @@ int	ft_atoi(const char *str)
 	return (num * neg);
 }
 
-void print_usage()
+void	print_usage()
 {
 	printf("\nusage : ./philo\n");
 	printf("\n\t 1. number_of_philosophers");
@@ -37,7 +37,7 @@ void print_usage()
 	exit(0);
 }
 
-int check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	int i = 0;
 	while (i < argc)
@@ -49,7 +49,7 @@ int check_args(int argc, char **argv)
 	return (1);
 }
 
-long int  time_diff(struct timeval start_time)
+long int	time_diff(struct timeval start_time)
 {
 	struct timeval cur_time;
 	long int start = ((long int)start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
@@ -72,8 +72,20 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	printf_th(long int time, int ph_count, char *string)
 {
-	pthread_mutex_lock(&g_val.printer);
-	printf("%lu %d %s\n", time, ph_count, string);
-	if (ft_strcmp(string, "died"))
+	if (!check_death())
+	{
+		pthread_mutex_lock(&g_val.printer);
+		printf("%lu %d %s\n", time, ph_count, string);
 		pthread_mutex_unlock(&g_val.printer);
+	}
+	
+}
+
+void	usleep_custom(int time)
+{
+	struct timeval cur_time;
+
+	gettimeofday(&cur_time, NULL);
+	while (time_diff(cur_time) < time)
+		usleep(20);
 }

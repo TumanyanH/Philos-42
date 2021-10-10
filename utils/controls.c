@@ -1,6 +1,6 @@
 #include "../philos.h"
 
-void start()
+void	start()
 {
 	int i = 0;
 	int ret;
@@ -23,27 +23,31 @@ void start()
 	}
 }
 
-void *ctrl(void *arg)
+void	*ctrl(void *arg)
 {
-	int ph = *((int *)arg);
+	int ph;
+
+	ph = *((int *)arg);
 	while (1)
 	{
-		// printf("%lu - %d\n", time_diff(g_val.philos[ph].last_eat), g_val.opts.time_to_die);
 		if (time_diff(g_val.philos[ph].last_eat) > g_val.opts.time_to_die)
 		{
+			if (g_val.opts.must_eat == -1)
+				printf_th(time_diff(g_val.times.start_time), ph + 1, "died");
 			g_val.philos[ph].death = 1;
-			printf_th(time_diff(g_val.times.start_time), ph + 1, "died");
 			break;
 		}
 	}
 	return (arg);
 }
 
-int check_death()
+int	check_death()
 {
-	int ret = 0;
-	int i = 0;
+	int ret;
+	int i;
 
+	ret = 0;
+	i = 0;
 	while (i < g_val.opts.num_of_philos)
 	{
 		if (g_val.philos[i].death)

@@ -47,5 +47,6 @@ void 		eating(int philo);
 void 		printf_th(long int time, int ph_count, char *string);
 void 		*ctrl(void *arg);
 int 		check_death();
+void		usleep_custom(int time);
 
 #endif
