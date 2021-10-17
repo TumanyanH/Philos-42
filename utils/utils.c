@@ -2,15 +2,15 @@
 
 int	ft_atoi(const char *str)
 {
-	int neg;
-	int i;
-	int num;
+	int	neg;
+	int	i;
+	int	num;
 
 	i = 0;
 	neg = 1;
 	num = 0;
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\f' || str[i] == '\r')
+		|| str[i] == '\f' || str[i] == '\r')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -39,7 +39,9 @@ void	print_usage()
 
 int	check_args(int argc, char **argv)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < argc)
 	{
 		if (ft_atoi(argv[i]) < 0)
@@ -51,41 +53,21 @@ int	check_args(int argc, char **argv)
 
 long int	time_diff(struct timeval start_time)
 {
-	struct timeval cur_time;
-	long int start = ((long int)start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
+	struct timeval		cur_time;
+	long int			start;
 
+	start = ((long int)start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
 	gettimeofday(&cur_time, NULL);
-	return ((((long int)cur_time.tv_sec * 1000) + ((int)cur_time.tv_usec / 1000))
-			- start);
+	return ((((long int)cur_time.tv_sec * 1000)
+			+ ((int)cur_time.tv_usec / 1000)) - start);
 }
-
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
-}
-
-void	printf_th(long int time, int ph_count, char *string)
-{
-	if (!check_death())
-	{
-		pthread_mutex_lock(&g_val.printer);
-		printf("%lu %d %s\n", time, ph_count, string);
-		pthread_mutex_unlock(&g_val.printer);
-	}
-	
-}
-
-void	usleep_custom(int time)
-{
-	struct timeval cur_time;
-
-	gettimeofday(&cur_time, NULL);
-	while (time_diff(cur_time) < time)
-		usleep(20);
 }

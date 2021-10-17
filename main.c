@@ -5,7 +5,8 @@ void	init_globs(char **def_arg)
 	struct timeval	tv;
 	struct timezone	tz;
 
-	if (ft_atoi(def_arg[1]) > 0 && ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
+	if (ft_atoi(def_arg[1]) > 0 &&
+		ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
 			&& ft_atoi(def_arg[4]) > 0)
 	{
 		g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
@@ -32,7 +33,7 @@ int	main(int argc, char **argv)
 		wake_philos();
 		start();
 	}
-	else 
+	else
 		print_usage();
 	return (0);
 }

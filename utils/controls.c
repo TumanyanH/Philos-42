@@ -1,16 +1,16 @@
 #include "../philos.h"
 
-void	start()
+void	start(void)
 {
-	int i = 0;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 0;
 	while (i < g_val.opts.num_of_philos)
 	{
 		ret = pthread_join(g_val.philos[i].thread, NULL);
 		if (ret != 0)
-			break;
+			break ;
 		++i;
 	}
 	i = 0;
@@ -18,14 +18,14 @@ void	start()
 	{
 		ret = pthread_join(g_val.philos[i].ctrl_th, NULL);
 		if (ret != 0)
-			break;
+			break ;
 		i++;
 	}
 }
 
 void	*ctrl(void *arg)
 {
-	int ph;
+	int	ph;
 
 	ph = *((int *)arg);
 	while (1)
@@ -35,16 +35,16 @@ void	*ctrl(void *arg)
 			if (g_val.opts.must_eat == -1)
 				printf_th(time_diff(g_val.times.start_time), ph + 1, "died");
 			g_val.philos[ph].death = 1;
-			break;
+			break ;
 		}
 	}
 	return (arg);
 }
 
-int	check_death()
+int	check_death(void)
 {
-	int ret;
-	int i;
+	int	ret;
+	int	i;
 
 	ret = 0;
 	i = 0;
