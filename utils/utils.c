@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htumanya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/18 19:22:37 by htumanya          #+#    #+#             */
+/*   Updated: 2021/10/18 19:22:38 by htumanya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philos.h"
 
 int	ft_atoi(const char *str)
@@ -26,7 +38,7 @@ int	ft_atoi(const char *str)
 	return (num * neg);
 }
 
-void	print_usage()
+void	print_usage(void)
 {
 	printf("\nusage : ./philo\n");
 	printf("\n\t 1. number_of_philosophers");
@@ -60,14 +72,4 @@ long int	time_diff(struct timeval start_time)
 	gettimeofday(&cur_time, NULL);
 	return ((((long int)cur_time.tv_sec * 1000)
 			+ ((int)cur_time.tv_usec / 1000)) - start);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
 }

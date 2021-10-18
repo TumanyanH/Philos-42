@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htumanya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/18 19:21:36 by htumanya          #+#    #+#             */
+/*   Updated: 2021/10/18 19:21:37 by htumanya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philos.h"
 
 void	init_globs(char **def_arg)
@@ -5,9 +17,8 @@ void	init_globs(char **def_arg)
 	struct timeval	tv;
 	struct timezone	tz;
 
-	if (ft_atoi(def_arg[1]) > 0 &&
-		ft_atoi(def_arg[2]) > 0 && ft_atoi(def_arg[3]) > 0 \
-			&& ft_atoi(def_arg[4]) > 0)
+	if (ft_atoi(def_arg[1]) > 0 && ft_atoi(def_arg[2]) > 0
+		&& ft_atoi(def_arg[3]) > 0 && ft_atoi(def_arg[4]) > 0)
 	{
 		g_val.opts.num_of_philos = ft_atoi(def_arg[1]);
 		g_val.opts.time_to_die = ft_atoi(def_arg[2]);

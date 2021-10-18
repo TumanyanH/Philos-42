@@ -2,6 +2,7 @@
 	"files.associations": {
 		"philos.h": "c",
 		"stdlib.h": "c",
-		"pthread.h": "c"
+		"pthread.h": "c",
+		"stdio.h": "c"
 	}
 }

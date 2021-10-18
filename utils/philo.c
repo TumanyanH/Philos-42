@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htumanya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/18 19:25:06 by htumanya          #+#    #+#             */
+/*   Updated: 2021/10/18 19:25:08 by htumanya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philos.h"
 
 void	think(int *philo)
@@ -20,7 +32,7 @@ void	*start_philo(void *arg)
 
 	ph_num = *((int *)arg);
 	counter = g_val.opts.must_eat;
-	while (!check_death(ph_num) && counter--)
+	while (!check_death() && counter--)
 	{
 		eating(ph_num);
 		ph_sleep((int *)arg);
@@ -60,37 +72,5 @@ void	init_mutex(void)
 		g_val.philos[i].death = 0;
 		pthread_mutex_init(&g_val.philos[i].fork, NULL);
 		i++;
-	}
-}
-
-void	wake_philos(void)
-{
-	int	i;
-	int	res;
-
-	i = sizeof(t_philo) * (g_val.opts.num_of_philos + 1);
-	g_val.philos = (t_philo *)malloc(i);
-	i = 0;
-	init_mutex();
-	gettimeofday(&g_val.times.start_time, NULL);
-	while (i < g_val.opts.num_of_philos)
-	{
-		res = pthread_create(&g_val.philos[i].thread, NULL,
-				&start_philo, &g_val.philos[i].id); 
-		usleep(50);
-		++i;
-	}
-	i = 0;
-	while (i < g_val.opts.num_of_philos)
-	{
-		gettimeofday(&g_val.philos[i].last_eat, NULL);
-		i++;
-	}
-	i = 0;
-	while (i < g_val.opts.num_of_philos)
-	{
-		res = pthread_create(&g_val.philos[i].ctrl_th, NULL,
-				&ctrl, &g_val.philos[i].id);
-		++i;
 	}
 }
