@@ -47,9 +47,11 @@ struct				s_val
 {
 	t_philo			*philos;
 	pthread_mutex_t	printer;
+	pthread_mutex_t	def;
 	pthread_mutex_t	eating;
 	t_philo_opts	opts;
 	t_times			times;
+	int				death_count;
 }					g_val;
 
 int			ft_atoi(const char *str);
@@ -65,6 +67,7 @@ int			check_death(void);
 void		usleep_custom(int time);
 void		*start_philo(void *arg);
 void		init_mutex(void);
+int			ft_iscap(char *string);
 int			ft_strcmp(char *s1, char *s2);
 
 #endif

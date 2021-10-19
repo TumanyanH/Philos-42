@@ -44,11 +44,18 @@ void	*ctrl(void *arg)
 	{
 		if (time_diff(g_val.philos[ph].last_eat) > g_val.opts.time_to_die)
 		{
+			pthread_mutex_lock(&g_val.def);
+			++g_val.death_count;
 			if (g_val.opts.must_eat == -1)
+			{
+				usleep(50);
 				printf_th(time_diff(g_val.times.start_time), ph + 1, "died");
+			}
 			g_val.philos[ph].death = 1;
+			pthread_mutex_unlock(&g_val.def);
 			break ;
 		}
+		usleep(50);
 	}
 	return (arg);
 }

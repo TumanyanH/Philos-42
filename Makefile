@@ -6,7 +6,8 @@ PS_FILES = main.c \
 			utils/controls.c \
 			utils/philo.c \
 			utils/utils.c \
-			utils/utils2.c
+			utils/utils2.c \
+			utils/utils3.c
 OBJS = ${PS_FILES:.c=.o}
 
 RM = rm -rf

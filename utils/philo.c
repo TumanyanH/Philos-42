@@ -66,6 +66,7 @@ void	init_mutex(void)
 
 	i = 0;
 	pthread_mutex_init(&g_val.printer, NULL);
+	pthread_mutex_init(&g_val.def, NULL);
 	while (i < g_val.opts.num_of_philos)
 	{
 		g_val.philos[i].id = i;
